@@ -45,7 +45,7 @@
   $gol = new Carro();
   $gol->setModelo("Gol GTI");
   $gol->setMotor("1.6");
-  $gol->setAno("2017");
+  $gol->setAno("1995");
 
   var_dump($gol->exibir());
 
