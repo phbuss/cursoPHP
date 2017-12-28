@@ -43,7 +43,7 @@
   }//FIM Carro
 
   $gol = new Carro();
-  $gol->setModelo("Gol GT");
+  $gol->setModelo("Gol GTI");
   $gol->setMotor("1.6");
   $gol->setAno("2017");
 
