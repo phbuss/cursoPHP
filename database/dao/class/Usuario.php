@@ -50,7 +50,12 @@ class Usuario {
       $this->setDtcadastro(new DateTime($row["dtcadastro"]));
     }
   }
-  
+
+  public function getList() {
+    $sql = new Sql();
+    return $sql->select("select * from tb_usuarios order by dslogin");
+  }
+
   public function __toString() {
     return json_encode(array(
         "idusuario" => $this->getIdusuario(),
