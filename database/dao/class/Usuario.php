@@ -43,11 +43,7 @@ class Usuario {
     $result = $sql->select("select * from tb_usuarios where idusuario = :id",array(":id"=>$id));
 
     if (count($result) > 0) {
-      $row = $result[0];
-      $this->setIdusuario($row["idusuario"]);
-      $this->setDslogin($row["dslogin"]);
-      $this->setDssenha($row["dssenha"]);
-      $this->setDtcadastro(new DateTime($row["dtcadastro"]));
+      $this->fillClass($result[0]);
     }
   }
 
@@ -71,16 +67,35 @@ class Usuario {
     ));
     
     if (count($result) > 0) {
-      $row = $result[0];
-      $this->setIdusuario($row["idusuario"]);
-      $this->setDslogin($row["dslogin"]);
-      $this->setDssenha($row["dssenha"]);
-      $this->setDtcadastro(new DateTime($row["dtcadastro"]));
+      $this->fillClass($result[0]);
     } else {
       throw new Exception ("Login e/ou senha inválidos");
     }
   }
+
+  public function fillClass($data) {
+    $this->setIdusuario($data["idusuario"]);
+    $this->setDslogin($data["dslogin"]);
+    $this->setDssenha($data["dssenha"]);
+    $this->setDtcadastro(new DateTime($data["dtcadastro"]));
+  }
   
+  public function insert() {
+    $sql = new Sql();
+    $result = $sql->select("CALL sp_usuarios_insert(:dslogin, :dssenha)",array(
+        ":dslogin"=>$this->getDslogin(),
+        ":dssenha"=>$this->getDssenha()
+    ));
+    
+    if (count($result) > 0) {
+      $this->fillClass($result[0]);
+    }
+  }
+  
+  public function __construct($dslogin="", $dssenha="") {
+    $this->setDslogin($dslogin);
+    $this->setDssenha($dssenha);
+  }
   
   public function __toString() {
     return json_encode(array(
