@@ -21,6 +21,17 @@ $usuario->login("root","root"); //OS
 echo $usuario . "<br>";
 
 echo "<br>" ."* Insert **************************" . "<br>";
-$aluno = new Usuario("aluno3","aluno3");
+$aluno = new Usuario("aluno","aluno");
 $aluno->insert();
 echo $aluno;
+
+echo "<br>"."* Update **************************"."<br>";
+$aluno->setDslogin("alunoNovo");
+$aluno->setDssenha("alunoNovo");
+$aluno->update();
+echo $aluno;
+
+echo "<br>"."* Delete **************************"."<br>";
+echo "Aluno que será apagado: ".$aluno."<br>";
+$aluno->delete();
+echo "Aluno apagado: ".$aluno;

@@ -91,6 +91,29 @@ class Usuario {
       $this->fillClass($result[0]);
     }
   }
+
+  public function update() {
+    $sql = new Sql();
+    $result = $sql->query("update tb_usuarios set dslogin = :dslogin, dssenha = :dssenha where idusuario = :id",array(
+        ":dslogin"=>$this->getDslogin(),
+        ":dssenha"=>$this->getDssenha(),
+        ":id"=>$this->getIdusuario()
+    ));
+  }
+
+  public function delete() {
+    $sql = new Sql();
+    $result = $sql->query("delete from tb_usuarios where idusuario = :id",array(
+        ":id"=>$this->getIdusuario()
+    ));
+    
+    $this->fillClass(array(
+        "idusuario" => 0,
+        "dslogin"   => "",
+        "dssenha"   => "",
+        "dtcadastro"=> ""
+    ));
+  }
   
   public function __construct($dslogin="", $dssenha="") {
     $this->setDslogin($dslogin);
