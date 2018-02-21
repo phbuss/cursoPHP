@@ -8,14 +8,23 @@ if (file_exists($filePath)) {
   
   $headers = explode(";", fgets($file));
   
-  $data = array();
+  $rows = array();
   
   while ($row = fgets($file)) {
     
     $rowData = explode(";", $row);
+    $linha = array();
+    
+    for ($i = 0; $i < count($headers); $i++) {
+      $linha[$headers[$i]] = $rowData[$i];  
+    }
+    
+    array_push($rows, $linha);
     
   }
   
   fclose($file);
   
 }
+
+echo json_encode($rows);
